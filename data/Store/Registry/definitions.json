@@ -15,16 +15,24 @@
     },
     "physics_categories": {
         "DRY_MATTER": {
-            "hydration_role": "base"
+            "hydration_role": "base",
+            "ROUNDING_THRESHOLD_PCT": 0.05,
+            "PRECISION_DECIMALS": 1
         },
         "LIQUID": {
-            "hydration_role": "fluid"
+            "hydration_role": "fluid",
+            "ROUNDING_THRESHOLD_PCT": 0.05,
+            "PRECISION_DECIMALS": 1
         },
         "FAT": {
-            "hydration_role": "ignore"
+            "hydration_role": "ignore",
+            "ROUNDING_THRESHOLD_PCT": 0.05,
+            "PRECISION_DECIMALS": 1
         },
         "OTHER": {
-            "hydration_role": "ignore"
+            "hydration_role": "ignore",
+            "ROUNDING_THRESHOLD_PCT": 0.05,
+            "PRECISION_DECIMALS": 1
         }
     },
     "registry": {
@@ -60,5 +68,13 @@
             "category_id": "DRY_MATTER",
             "type": "BRANCH"
         }
+    },
+    "orchestration": {
+    "paths": { "entities": "Entities" },
+    "output_mapping": {
+      "name_column": "Ingredient",
+      "value_column": "Amount",
+      "id_column": "Code"
     }
-}
+  }
+} 

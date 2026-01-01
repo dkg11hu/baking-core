@@ -20,19 +20,26 @@ export class Calculator {
         const deviation = Math.abs((rounded - value) / value) * 100;
         return (deviation > threshold) ? Number(value.toFixed(1)) : rounded;
     }
+    static sanitizeMiseEnPlace(rawResults, ssot) {
+        const sanitized = {};
+        const registry = ssot.registry || ssot.inventory;
+        const physics = ssot.physics_categories;
 
+        for (const [id, mass] of Object.entries(rawResults)) {
+            const entry = registry[id];
+            const categoryId = entry ? entry.category_id : 'OTHER';
+            
+            // Dynamic lookup based on Database fieldnames
+            const rules = physics[categoryId] || { ROUNDING_THRESHOLD_PCT: 0.05 };
+            
+            sanitized[id] = this.applyRounding(mass, rules.ROUNDING_THRESHOLD_PCT);
+        }
+        return sanitized;
+    }
     /**
      * Processes raw weights into a rounded mise-en-place map
      */
-    static sanitizeMiseEnPlace(rawMaterials, schema) {
-        const threshold = schema.system_constants.ROUNDING_THRESHOLD_PCT;
-        return Object.fromEntries(
-            Object.entries(rawMaterials).map(([id, mass]) => [
-                id,
-                this.applyRounding(mass, threshold)
-            ])
-        );
-    }
+
 
     /**
      * Final Parity Check: Adjusts largest mass to match targetTotal exactly.
