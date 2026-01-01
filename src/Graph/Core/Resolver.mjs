@@ -1,57 +1,80 @@
-import fs from 'fs';
-import path from 'path';
 import { Calculator } from '../Logic/Calculator.mjs';
 
 export class GraphResolver {
-    constructor() {
-        this.root = process.env.BAKING_PATH || process.cwd();
-        const schemaPath = path.join(this.root, 'data/Store/Registry/definitions.json');
+    constructor(preLoadedSchema = null) {
+        // If we have a schema (Browser), use it. Otherwise, load from disk (Node).
+        this.schema = preLoadedSchema;
+        this.isBrowser = typeof window !== 'undefined';
         
-        // Ensure the schema is loaded correctly
-        const rawSchema = fs.readFileSync(schemaPath, 'utf-8');
-        this.schema = JSON.parse(rawSchema);
-
-        if (!this.schema.inventory) {
-            throw new Error("Registry Error: 'inventory' key missing in definitions.json");
+        if (!this.isBrowser) {
+            this.initNode();
         }
     }
 
-    resolve(nodeId, targetValue) {
+    initNode() {
+        // This only runs in Node.js
+        this.fs = import('fs'); 
+        this.path = import('path');
+        this.root = process.env.BAKING_PATH || process.cwd();
+    }
+
+    /**
+     * ASYNC RESOLVE
+     * Changed to async to support browser fetch()
+     */
+    async resolve(nodeId, targetValue) {
+        if (!this.schema) {
+            // Load schema if missing (Node fallback)
+            const schemaData = await this.loadJson('data/Store/Registry/definitions.json');
+            this.schema = schemaData;
+        }
+
         const item = this.schema.inventory[nodeId];
         if (!item) throw new Error(`ID ${nodeId} NOT IN REGISTRY`);
 
         const behavior = this.schema.logic_behaviors[item.type];
 
         // BASE CASE: Raw Material (LEAF)
-        // Note: Return high-precision float for intermediate steps
         if (!behavior.recursive) {
             return { [nodeId]: targetValue };
         }
 
         // RECURSIVE CASE: Process (BRANCH)
-        const entityPath = path.join(this.root, 'data/Store/Entities', `${nodeId.toLowerCase()}.json`);
+        const entityPath = `data/Store/Entities/${nodeId.toLowerCase()}.json`;
+        const entity = await this.loadJson(entityPath);
         
-        if (!fs.existsSync(entityPath)) {
-            throw new Error(`File Missing: ${entityPath}`);
-        }
-
-        const entity = JSON.parse(fs.readFileSync(entityPath, 'utf-8'));
         const fKey = this.schema.field_mapping.RELATIONAL_DATA;
-
-        // Use the Logic Namespace for the math
         const factor = Calculator.getScaleFactor(targetValue, entity[fKey]);
 
         let results = {};
-        entity[fKey].forEach(part => {
+        
+        // Use for...of for async recursion
+        for (const part of entity[fKey]) {
             const subMass = part.pct * factor;
-            // Recursive call
-            const subRes = this.resolve(part.id, subMass);
+            const subRes = await this.resolve(part.id, subMass);
 
             for (const [id, mass] of Object.entries(subRes)) {
                 results[id] = (results[id] || 0) + mass;
             }
-        });
+        }
 
         return results;
+    }
+
+    /**
+     * Environment-agnostic JSON Loader
+     */
+    async loadJson(relativeUrl) {
+        if (this.isBrowser) {
+            // Browser Query
+            const response = await fetch(`./${relativeUrl}`);
+            return await response.json();
+        } else {
+            // Node.js Query (using dynamic import for fs/path)
+            const fs = await import('fs');
+            const path = await import('path');
+            const absolutePath = path.join(this.root, relativeUrl);
+            return JSON.parse(fs.readFileSync(absolutePath, 'utf-8'));
+        }
     }
 }
