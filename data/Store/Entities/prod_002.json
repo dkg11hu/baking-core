@@ -1,0 +1,12 @@
+{
+  "id": "PROD_002",
+  "prerequisites": ["PROD_001"],
+  "formula": [
+    { "id": "MAT_001", "pct": 100 },
+    { "id": "MAT_003", "pct": 65 },
+    { "id": "MAT_004", "pct": 2 },
+    { "id": "MAT_005", "pct": 1.2 },
+    { "id": "MAT_006", "pct": 10 },
+    { "id": "PROD_001", "pct": 20 }
+  ]
+}
