@@ -67,8 +67,23 @@
         "PROD_002": {
             "category_id": "DRY_MATTER",
             "type": "BRANCH"
-        }
-    },
+        },
+        "MAT_WHEAT": { 
+            "category_id": "DRY_MATTER", 
+            "type": "LEAF" },
+        "MAT_WATER": { 
+            "category_id": "LIQUID",
+            "type": "LEAF" },
+        "PROC_STARTER": {
+            "category_id": "DRY_MATTER",
+            "type": "BRANCH" },
+        "PROC_LEVAIN": {
+            "category_id": "DRY_MATTER", 
+            "type": "BRANCH" },
+        "PROD_SOURDOUGH": { 
+            "category_id": "DRY_MATTER",
+            "type": "BRANCH" }
+        },
     "orchestration": {
     "paths": { "entities": "Entities" },
     "output_mapping": {

@@ -4,6 +4,25 @@ import { Calculator } from './src/Graph/Logic/Calculator.mjs';
 
 let ssot, locale;
 
+// NEW: Helper to render Database Statistics
+function renderStats(ssot) {
+    const db = ssot.registry || ssot.inventory;
+    const items = Object.values(db);
+    
+    const stats = {
+        processes: items.filter(i => i.type === 'BRANCH').length,
+        materials: items.filter(i => i.type === 'LEAF').length
+    };
+
+    const statsContainer = document.getElementById('stats-summary');
+    if (statsContainer) {
+        statsContainer.innerHTML = `
+            <div class="stat-card"><strong>${stats.processes}</strong> <span>Processes</span></div>
+            <div class="stat-card"><strong>${stats.materials}</strong> <span>Materials</span></div>
+        `;
+    }
+}
+
 async function boot() {
     try {
         const [ssotRes, localeRes] = await Promise.all([
@@ -15,6 +34,9 @@ async function boot() {
 
         ssot = await ssotRes.json();
         locale = await localeRes.json();
+
+        // RUN STATS RENDERER
+        renderStats(ssot);
 
         const db = ssot.registry || ssot.inventory;
         const products = Object.entries(db).filter(([_, item]) => item.type === 'BRANCH');
@@ -32,6 +54,8 @@ async function boot() {
         console.error("Boot failed:", err);
     }
 }
+
+// ... rest of your code (renderHierarchy and runProcess) stays exactly the same
 
 /**
  * Recursive HTML Builder with Database-Driven Rounding

@@ -104,3 +104,40 @@ body {
 .cumulative-summary tr:last-child td {
     border-bottom: none;
 }
+
+/* Stats Layout */
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    background: #1a1a1a;
+    padding: 15px 10px;
+    border-radius: 8px;
+    border: 1px solid #333;
+    border-bottom: 3px solid #f1c40f;
+    text-align: center;
+}
+
+.stat-card strong {
+    display: block;
+    font-size: 1.8rem;
+    color: #f1c40f;
+    margin-bottom: 4px;
+}
+
+.stat-card span {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #888;
+}
+
+.divider {
+    border: 0;
+    border-top: 1px solid #333;
+    margin: 20px 0;
+}
