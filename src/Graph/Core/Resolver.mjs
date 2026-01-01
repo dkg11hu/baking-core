@@ -2,7 +2,6 @@ import { Calculator } from '../Logic/Calculator.mjs';
 
 export class GraphResolver {
     constructor(preLoadedSchema = null) {
-        // If we have a schema (Browser), use it. Otherwise, load from disk (Node).
         this.schema = preLoadedSchema;
         this.isBrowser = typeof window !== 'undefined';
         
@@ -12,34 +11,27 @@ export class GraphResolver {
     }
 
     initNode() {
-        // This only runs in Node.js
-        this.fs = import('fs'); 
-        this.path = import('path');
         this.root = process.env.BAKING_PATH || process.cwd();
     }
 
     /**
-     * ASYNC RESOLVE
-     * Changed to async to support browser fetch()
+     * Flat Resolver: Used for Mise en Place (Flattens all leaves)
      */
     async resolve(nodeId, targetValue) {
         if (!this.schema) {
-            // Load schema if missing (Node fallback)
-            const schemaData = await this.loadJson('data/Store/Registry/definitions.json');
-            this.schema = schemaData;
+            this.schema = await this.loadJson('data/Store/Registry/definitions.json');
         }
 
-        const item = this.schema.inventory[nodeId];
-        if (!item) throw new Error(`ID ${nodeId} NOT IN REGISTRY`);
+        const db = this.schema.registry || this.schema.inventory;
+        const item = db[nodeId];
+        if (!item) throw new Error(`ID ${nodeId} NOT IN DATABASE REGISTRY`);
 
         const behavior = this.schema.logic_behaviors[item.type];
 
-        // BASE CASE: Raw Material (LEAF)
         if (!behavior.recursive) {
             return { [nodeId]: targetValue };
         }
 
-        // RECURSIVE CASE: Process (BRANCH)
         const entityPath = `data/Store/Entities/${nodeId.toLowerCase()}.json`;
         const entity = await this.loadJson(entityPath);
         
@@ -47,8 +39,6 @@ export class GraphResolver {
         const factor = Calculator.getScaleFactor(targetValue, entity[fKey]);
 
         let results = {};
-        
-        // Use for...of for async recursion
         for (const part of entity[fKey]) {
             const subMass = part.pct * factor;
             const subRes = await this.resolve(part.id, subMass);
@@ -57,20 +47,47 @@ export class GraphResolver {
                 results[id] = (results[id] || 0) + mass;
             }
         }
-
         return results;
     }
 
     /**
-     * Environment-agnostic JSON Loader
+     * Hierarchical Resolver: Used for Process View (Preserves Tree)
      */
+    async resolveHierarchy(nodeId, targetValue) {
+        if (!this.schema) {
+            this.schema = await this.loadJson('data/Store/Registry/definitions.json');
+        }
+
+        const db = this.schema.registry || this.schema.inventory;
+        const item = db[nodeId];
+        if (!item) throw new Error(`ID ${nodeId} NOT IN DATABASE REGISTRY`);
+
+        const behavior = this.schema.logic_behaviors[item.type];
+
+        if (!behavior.recursive) {
+            return { id: nodeId, mass: targetValue, type: 'LEAF' };
+        }
+
+        const entityPath = `data/Store/Entities/${nodeId.toLowerCase()}.json`;
+        const entity = await this.loadJson(entityPath);
+        const fKey = this.schema.field_mapping.RELATIONAL_DATA;
+        const factor = Calculator.getScaleFactor(targetValue, entity[fKey]);
+
+        return {
+            id: nodeId,
+            mass: targetValue,
+            type: 'BRANCH',
+            children: await Promise.all(entity[fKey].map(async part => {
+                return await this.resolveHierarchy(part.id, part.pct * factor);
+            }))
+        };
+    }
+
     async loadJson(relativeUrl) {
         if (this.isBrowser) {
-            // Browser Query
             const response = await fetch(`./${relativeUrl}`);
             return await response.json();
         } else {
-            // Node.js Query (using dynamic import for fs/path)
             const fs = await import('fs');
             const path = await import('path');
             const absolutePath = path.join(this.root, relativeUrl);
