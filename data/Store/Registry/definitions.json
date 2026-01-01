@@ -1,18 +1,4 @@
 {
-    "orchestration": {
-        "paths": {
-            "entities": "data/Store/Entities",
-            "locale": "data/Store/Locale"
-        },
-        "output_mapping": {
-            "name_column": "Ingredient",
-            "value_column": "Amount",
-            "id_column": "Code"
-        }
-    },
-    "system_constants": {
-        "ROUNDING_THRESHOLD_PCT": 5
-    },
     "field_mapping": {
         "NODE_ID": "id",
         "RELATIONAL_DATA": "formula",

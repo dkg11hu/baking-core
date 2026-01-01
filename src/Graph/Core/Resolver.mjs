@@ -1,54 +1,57 @@
-// src/Graph/Core/Resolver.mjs
 import fs from 'fs';
 import path from 'path';
+import { Calculator } from '../Logic/Calculator.mjs';
 
 export class GraphResolver {
     constructor() {
         this.root = process.env.BAKING_PATH || process.cwd();
         const schemaPath = path.join(this.root, 'data/Store/Registry/definitions.json');
-        this.schema = JSON.parse(fs.readFileSync(schemaPath, 'utf-8'));
+        
+        // Ensure the schema is loaded correctly
+        const rawSchema = fs.readFileSync(schemaPath, 'utf-8');
+        this.schema = JSON.parse(rawSchema);
+
+        if (!this.schema.inventory) {
+            throw new Error("Registry Error: 'inventory' key missing in definitions.json");
+        }
     }
 
     resolve(nodeId, targetValue) {
-        const itemDefinition = this.schema.registry[nodeId];
-        const behavior = this.schema.logic_behaviors[itemDefinition.type];
+        const item = this.schema.inventory[nodeId];
+        if (!item) throw new Error(`ID ${nodeId} NOT IN REGISTRY`);
 
-        // BASE CASE: Leaf node (e.g., MAT_001)
+        const behavior = this.schema.logic_behaviors[item.type];
+
+        // BASE CASE: Raw Material (LEAF)
+        // Note: Return high-precision float for intermediate steps
         if (!behavior.recursive) {
             return { [nodeId]: targetValue };
         }
 
-        // RECURSIVE CASE: Branch node
-        const dataPath = path.join(this.root, 'data/Store/Entities', `${nodeId.toLowerCase()}.json`);
-        const entity = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
-
-        // 1. DYNAMIC FIELD MAPPING
-        const formulaKey = this.schema.field_mapping.RELATIONAL_DATA;
-        const prereqKey = this.schema.field_mapping.DEPENDENCY_LINK;
-
-        // 2. VALIDATION: Check if prerequisites exist in the SSOT
-        if (entity[prereqKey]) {
-            entity[prereqKey].forEach(pId => {
-                if (!this.schema.registry[pId]) {
-                    throw new Error(`CRITICAL: Prerequisite ${pId} not found in SSOT.`);
-                }
-            });
+        // RECURSIVE CASE: Process (BRANCH)
+        const entityPath = path.join(this.root, 'data/Store/Entities', `${nodeId.toLowerCase()}.json`);
+        
+        if (!fs.existsSync(entityPath)) {
+            throw new Error(`File Missing: ${entityPath}`);
         }
 
-        // 3. MATH: Standard Reverse-Scaling
-        const sumParts = entity[formulaKey].reduce((sum, item) => sum + item.pct, 0);
-        const factor = targetValue / sumParts;
+        const entity = JSON.parse(fs.readFileSync(entityPath, 'utf-8'));
+        const fKey = this.schema.field_mapping.RELATIONAL_DATA;
 
-        let aggregatedResult = {};
-        entity[formulaKey].forEach(item => {
-            const calculatedValue = item.pct * factor;
-            const subResults = this.resolve(item.id, calculatedValue);
+        // Use the Logic Namespace for the math
+        const factor = Calculator.getScaleFactor(targetValue, entity[fKey]);
 
-            for (const [id, val] of Object.entries(subResults)) {
-                aggregatedResult[id] = (aggregatedResult[id] || 0) + val;
+        let results = {};
+        entity[fKey].forEach(part => {
+            const subMass = part.pct * factor;
+            // Recursive call
+            const subRes = this.resolve(part.id, subMass);
+
+            for (const [id, mass] of Object.entries(subRes)) {
+                results[id] = (results[id] || 0) + mass;
             }
         });
 
-        return aggregatedResult;
+        return results;
     }
 }
