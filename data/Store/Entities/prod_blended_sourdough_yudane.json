@@ -1,0 +1,15 @@
+{
+  "id": "PROD_BLENDED_SOURDOUGH_YUDANE",
+  "formula": [
+    { "id": "MAT_WHEAT_T80", "pct": 0.8 },
+    { "id": "PROD_YUDANE", "pct": 0.2 },
+    { "id": "PROC_STARTER", "pct": 0.15 },
+    { "id": "MAT_WATER", "pct": 0.65 },
+    { "id": "MAT_SEA_SALT", "pct": 0.02 }
+  ],
+  "parameters": {
+    "step_boil": { "target_temp": 100, "duration_min": 5 },
+    "step_bulk_ferment": { "target_temp": 26, "duration_min": 240 },
+    "step_bake": { "target_temp": 245, "duration_min": 45, "tools": ["TOOL_OVEN", "TOOL_STEAM_TRAY"] }
+  }
+}

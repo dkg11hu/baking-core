@@ -1,0 +1,65 @@
+{
+    "field_mapping": {
+        "NODE_ID": "id",
+        "RELATIONAL_DATA": "formula",
+        "DEPENDENCY_LINK": "prerequisites",
+        "CATEGORY": "category_id"
+    },
+    "logic_behaviors": {
+        "LEAF": {
+            "recursive": false
+        },
+        "BRANCH": {
+            "recursive": true
+        }
+    },
+    "physics_categories": {
+        "DRY_MATTER": {
+            "hydration_role": "base"
+        },
+        "LIQUID": {
+            "hydration_role": "fluid"
+        },
+        "FAT": {
+            "hydration_role": "ignore"
+        },
+        "OTHER": {
+            "hydration_role": "ignore"
+        }
+    },
+    "registry": {
+        "MAT_001": {
+            "category_id": "DRY_MATTER",
+            "type": "LEAF"
+        },
+        "MAT_002": {
+            "category_id": "LIQUID",
+            "type": "LEAF"
+        },
+        "MAT_003": {
+            "category_id": "LIQUID",
+            "type": "LEAF"
+        },
+        "MAT_004": {
+            "category_id": "OTHER",
+            "type": "LEAF"
+        },
+        "MAT_005": {
+            "category_id": "OTHER",
+            "type": "LEAF"
+        },
+        "MAT_006": {
+            "category_id": "FAT",
+            "type": "LEAF"
+        },
+        "PROD_001": {
+            "category_id": "DRY_MATTER",
+            "type": "BRANCH"
+        },
+        "PROD_002": {
+            "category_id": "DRY_MATTER",
+            "type": "BRANCH"
+        }
+    },
+    
+}

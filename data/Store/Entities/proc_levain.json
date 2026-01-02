@@ -1,0 +1,13 @@
+{
+  "id": "PROC_LEVAIN",
+  "prerequisites": ["PROC_STARTER"],
+  "technology": "TECH_CULTURE_MAINTENANCE",
+  "formula": [
+    { "id": "PROC_STARTER", "pct": 0.2, "tech_step": "step_feed" },
+    { "id": "MAT_WHEAT_T80", "pct": 1.0, "tech_step": "step_feed" },
+    { "id": "MAT_WATER", "pct": 0.8, "tech_step": "step_feed" }
+  ],
+  "parameters": {
+    "step_ferment": { "target_temp": 28, "duration_min": 240, "tools": ["TOOL_PROOFER_BOX"] }
+  }
+}

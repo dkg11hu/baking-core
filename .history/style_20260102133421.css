@@ -1,0 +1,114 @@
+:root {
+    --primary: #f1c40f;
+    --bg: #0f0f0f;
+    --surface: #1a1a1a;
+    --text: #e0e0e0;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica;
+}
+
+.hidden { display: none !important; }
+
+/* Sticky Gallery Header */
+.sticky-header {
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    padding: 15px;
+    z-index: 100;
+    border-bottom: 1px solid #333;
+}
+
+/* Horizontal Chip Container */
+.chip-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding-top: 10px;
+    scrollbar-width: none;
+}
+.chip {
+    padding: 8px 18px;
+    background: var(--surface);
+    border: 1px solid #444;
+    border-radius: 20px;
+    color: var(--text);
+    white-space: nowrap;
+    font-size: 0.85rem;
+}
+.chip.active {
+    background: var(--primary);
+    color: #000;
+    border-color: var(--primary);
+}
+
+/* Photo Tiles */
+.tile-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 15px;
+}
+.tile {
+    aspect-ratio: 1/1;
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+}
+.tile-label {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 15px 10px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.9));
+    font-size: 0.9rem;
+}
+
+/* Workflow Driver */
+#workflow-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+.media-container {
+    width: 100%;
+    background: #000;
+    aspect-ratio: 16/9;
+}
+.media-container img, .media-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.content-stage {
+    padding: 20px;
+    flex-grow: 1;
+}
+.stepper-controls {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 15px;
+    padding: 20px;
+    background: var(--surface);
+    border-top: 1px solid #333;
+}
+.btn-nav {
+    padding: 18px;
+    border-radius: 12px;
+    border: none;
+    font-weight: bold;
+    font-size: 1rem;
+    background: #333;
+    color: white;
+}
+.btn-nav.primary {
+    background: var(--primary);
+    color: black;
+}

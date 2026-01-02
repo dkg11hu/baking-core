@@ -1,0 +1,8 @@
+{
+  "id": "PROC_LEVAIN",
+  "formula": [
+    { "id": "PROC_STARTER", "pct": 0.2 },
+    { "id": "MAT_WHEAT", "pct": 0.4 },
+    { "id": "MAT_WATER", "pct": 0.4 }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "PROD_BAGUETTE",
+  "technology": "TECH_LEAVENED_BASE",
+  "formula": [
+    { "id": "MAT_WHEAT_T65", "pct": 1.0, "tech_step": "step_autolyse" },
+    { "id": "MAT_WATER", "pct": 0.72, "tech_step": "step_autolyse" },
+    { "id": "PROC_LEVAIN", "pct": 0.15, "tech_step": "step_add_levain" },
+    { "id": "MAT_SEA_SALT", "pct": 0.018, "tech_step": "step_add_salt" }
+  ],
+  "parameters": {
+    "step_shape": { "tools": ["TOOL_LINEN_COUCHETTE"], "video_override": "assets/vid/tech/baguette_specific_shaping.mp4" },
+    "step_bake": { "target_temp": 240, "duration_min": 22 }
+  }
+}

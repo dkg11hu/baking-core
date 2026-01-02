@@ -1,0 +1,42 @@
+/* Graphical Selector (Map) Constraints */
+#graphical-selector {
+    padding: 10px;
+    background: var(--bg);
+    border-bottom: 1px solid #222;
+}
+
+.map-region {
+    fill: #222;
+    stroke: #444;
+    stroke-width: 1.5;
+    transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.map-region.active {
+    fill: var(--primary);
+    stroke: #000;
+    filter: drop-shadow(0 0 5px var(--primary));
+}
+
+#active-territory-label {
+    display: block;
+    font-size: 10px;
+    text-align: center;
+    color: var(--primary);
+    letter-spacing: 2px;
+    padding-top: 8px;
+    text-transform: uppercase;
+}
+
+/* Photo Tiles inside the Bezel */
+.tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.tile:active img {
+    transform: scale(0.95);
+}

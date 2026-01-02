@@ -1,0 +1,24 @@
+.map-container { padding: 10px; background: var(--bg); }
+.interactive-map { width: 100%; height: auto; border-radius: 8px; }
+
+.map-region {
+    fill: #222;
+    stroke: #444;
+    stroke-width: 1;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.map-region:hover, .map-region.active {
+    fill: var(--primary);
+    stroke: #000;
+}
+
+#active-territory-label {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-align: center;
+    color: var(--primary);
+    margin-top: 8px;
+    text-transform: uppercase;
+}

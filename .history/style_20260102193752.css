@@ -1,0 +1,59 @@
+.map-container { padding: 10px; background: var(--bg); }
+.interactive-map { width: 100%; height: auto; border-radius: 8px; }
+
+.map-region {
+    fill: #222;
+    stroke: #444;
+    stroke-width: 1;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.map-region:hover, .map-region.active {
+    fill: var(--primary);
+    stroke: #000;
+}
+
+#active-territory-label {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-align: center;
+    color: var(--primary);
+    margin-top: 8px;
+    text-transform: uppercase;
+}
+
+/* Ensure the screen content is the absolute boundary */
+.screen-content {
+    width: 100%;
+    height: 100%;
+    background: var(--bg);
+    overflow-y: auto;
+    overflow-x: hidden; /* Prevents horizontal 'jitter' */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Force images to respect the frame */
+.tile img, .media-container video, .media-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Crops rather than stretches */
+    display: block;
+}
+
+/* Fix for the Graphical Selector (Map/Matrix) */
+#graphical-selector {
+    width: 100%;
+    max-width: 375px; /* Physical limit of iPhone XS */
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* Ensure the Map SVG stays proportional */
+.interactive-map, .selection-map {
+    width: 100%;
+    height: auto;
+    max-height: 200px; /* Limit height to keep tiles visible */
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baking Core - Mobile Driver</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="device-container">
+        <div class="iphone-xs">
+            <div class="notch"></div>
+            
+            <div class="screen-content">
+                <section id="browser-view">
+                    <header class="app-header">
+                        <h1>Baking Core</h1>
+                        <div id="filter-chips" class="filter-row"></div>
+                    </header>
+                    <div id="tile-grid"></div>
+                </section>
+
+                <section id="workflow-view" class="hidden">
+                    <div id="media-stage"></div>
+                    <div id="step-description"></div>
+                    <nav class="workflow-controls">
+                        <button onclick="changeStep(-1)">BACK</button>
+                        <button onclick="changeStep(1)">NEXT</button>
+                    </nav>
+                </section>
+            </div>
+
+            <div class="home-indicator"></div>
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>

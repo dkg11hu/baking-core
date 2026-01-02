@@ -1,0 +1,15 @@
+{
+  "id": "PROD_SOURDOUGH_LOAF",
+  "prerequisites": ["PROC_LEVAIN"],
+  "technology": "TECH_LEAVENED_BASE",
+  "formula": [
+    { "id": "MAT_WHEAT_T80", "pct": 0.9, "tech_step": "step_autolyse" },
+    { "id": "MAT_WATER", "pct": 0.65, "tech_step": "step_autolyse" },
+    { "id": "PROC_LEVAIN", "pct": 0.2, "tech_step": "step_add_levain" },
+    { "id": "MAT_SEA_SALT", "pct": 0.02, "tech_step": "step_add_salt" }
+  ],
+  "parameters": {
+    "step_bulk_ferment": { "target_temp": 27, "duration_min": 240 },
+    "step_bake": { "target_temp": 250, "duration_min": 45, "tools": ["TOOL_DECK_OVEN"] }
+  }
+}

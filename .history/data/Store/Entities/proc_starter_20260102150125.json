@@ -1,0 +1,11 @@
+{
+  "id": "PROC_STARTER",
+  "technology": "TECH_CULTURE_MAINTENANCE",
+  "formula": [
+    { "id": "MAT_WHEAT_T80", "pct": 1.0, "tech_step": "step_feed" },
+    { "id": "MAT_WATER", "pct": 1.0, "tech_step": "step_feed" }
+  ],
+  "parameters": {
+    "step_ferment": { "target_temp": 26, "duration_min": 480 }
+  }
+}

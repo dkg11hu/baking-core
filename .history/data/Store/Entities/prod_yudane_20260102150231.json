@@ -1,0 +1,12 @@
+{
+  "id": "PROD_YUDANE",
+  "technology": "TECH_SCALD",
+  "formula": [
+    { "id": "MAT_WHEAT_T80", "pct": 1.0, "tech_step": "step_incorporate" },
+    { "id": "MAT_WATER", "pct": 1.5, "tech_step": "step_boil" }
+  ],
+  "parameters": {
+    "step_boil": { "target_temp": 100 },
+    "step_gelatinize": { "target_temp": 4, "duration_min": 720, "tools": ["TOOL_CHILLER"] }
+  }
+}

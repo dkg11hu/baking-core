@@ -1,0 +1,7 @@
+{
+  "id": "PROD_001",
+  "formula": [
+    { "id": "MAT_WATER", "pct": 0.5, "step": "step_boil_liquid" },
+    { "id": "MAT_WHEAT_T80", "pct": 0.5, "step": "step_incorporate_flour" }
+  ]
+}

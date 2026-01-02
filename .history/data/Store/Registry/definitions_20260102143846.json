@@ -1,0 +1,99 @@
+{
+  "field_mapping": {
+    "NODE_ID": "id",
+    "RELATIONAL_DATA": "formula",
+    "DEPENDENCY_LINK": "prerequisites",
+    "CATEGORY": "category_id"
+  },
+  "logic_behaviors": {
+    "LEAF": { "recursive": false },
+    "BRANCH": { "recursive": true }
+  },
+  "physics_categories": {
+    "FLOURS": { "hydration_role": "base", "ROUNDING_THRESHOLD_PCT": 0.05, "PRECISION_DECIMALS": 1 },
+    "LIQUIDS": { "hydration_role": "fluid", "ROUNDING_THRESHOLD_PCT": 0.05, "PRECISION_DECIMALS": 1 },
+    "FATS": { "hydration_role": "ignore", "ROUNDING_THRESHOLD_PCT": 0.05, "PRECISION_DECIMALS": 0 },
+    "INCLUSIONS": { "hydration_role": "ignore", "ROUNDING_THRESHOLD_PCT": 0.1, "PRECISION_DECIMALS": 1 },
+    "PREFERMENTS": { "hydration_role": "base", "ROUNDING_THRESHOLD_PCT": 0.05, "PRECISION_DECIMALS": 1 },
+    "SALTS": { "hydration_role": "ignore", "ROUNDING_THRESHOLD_PCT": 0.01, "PRECISION_DECIMALS": 2 },
+    "SWEETENERS": { "hydration_role": "ignore", "ROUNDING_THRESHOLD_PCT": 0.05, "PRECISION_DECIMALS": 1 }
+  },
+  "registry": {
+    "MAT_WHEAT_T80": {
+      "category_id": "FLOURS",
+      "type": "LEAF",
+      "classification": {
+        "group": "GRAIN",
+        "material": "WHEAT",
+        "refinement": "T80"
+      },
+      "ui_features": { "tile_photo": "assets/img/flour_t80.jpg" }
+    },
+    "PROD_YUDANE": {
+      "category_id": "PREFERMENTS",
+      "type": "BRANCH",
+      "classification": {
+        "territory": "JAPAN",
+        "cuisine": "ASIAN",
+        "dough_family": "SCALD",
+        "flavor_base": "NEUTRAL"
+      },
+      "ui_features": {
+        "tile_photo": "assets/img/yudane.jpg",
+        "video_ref": "assets/vid/mixing_yudane.mp4",
+        "workflow_sequence": ["step_boil_liquid", "step_incorporate_flour", "step_gelatinize"]
+      }
+    },
+    "PROC_STARTER": {
+      "category_id": "PREFERMENTS",
+      "type": "BRANCH",
+      "classification": {
+        "territory": "GLOBAL",
+        "cuisine": "FERMENTATION",
+        "dough_family": "CULTURE",
+        "flavor_base": "ACIDIC"
+      },
+      "ui_features": {
+        "tile_photo": "assets/img/starter.jpg",
+        "video_ref": "assets/vid/feeding_starter.mp4",
+        "workflow_sequence": ["step_discard", "step_feed_flour", "step_feed_water", "step_ferment"]
+      }
+    },
+    "PROD_SOURDOUGH_LOAF": {
+      "category_id": "FLOURS",
+      "type": "BRANCH",
+      "classification": {
+        "territory": "EUROPE",
+        "cuisine": "ARTISAN",
+        "dough_family": "LEAVENED_BREAD",
+        "flavor_base": "SALTY",
+        "event": "DAILY_PRODUCTION"
+      },
+      "ui_features": {
+        "tile_photo": "assets/img/sourdough_final.jpg",
+        "video_ref": "assets/vid/shaping.mp4",
+        "workflow_sequence": ["step_autolyse", "step_add_levain", "step_bulk_ferment", "step_shape", "step_cold_proof", "step_bake"]
+      }
+    },
+    "MAT_BUTTER": { 
+      "category_id": "FATS", 
+      "type": "LEAF", 
+      "classification": { "group": "DAIRY", "material": "ANIMAL_FAT" },
+      "ui_features": { "tile_photo": "assets/img/butter.jpg" }
+    },
+    "MAT_SESAME": { 
+      "category_id": "INCLUSIONS", 
+      "type": "LEAF", 
+      "classification": { "group": "SEEDS", "material": "SESAME" },
+      "ui_features": { "tile_photo": "assets/img/sesame.jpg" }
+    }
+  },
+  "orchestration": {
+    "paths": { "entities": "Entities" },
+    "output_mapping": {
+      "name_column": "Ingredient",
+      "value_column": "Amount",
+      "id_column": "Code"
+    }
+  }
+}

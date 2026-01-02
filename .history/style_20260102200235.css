@@ -1,0 +1,79 @@
+:root {
+    --primary: #f1c40f;
+    --bg: #000000;
+    --surface: #121212;
+    --text: #ffffff;
+    --phone-w: 375px;
+    --phone-h: 812px;
+}
+
+body { 
+    margin: 0; background: #1a1a1a; display: flex; justify-content: center; 
+    align-items: center; min-height: 100vh; overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* --- HARDWARE --- */
+.iphone-xs {
+    width: var(--phone-w); height: var(--phone-h); background: #000;
+    border-radius: 40px; position: relative; border: 10px solid #111;
+    overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+}
+
+.notch {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 170px; height: 30px; background: #000; z-index: 1000;
+    border-bottom-left-radius: 18px; border-bottom-right-radius: 18px;
+}
+
+.screen-content {
+    width: 100%; height: 100%; background: var(--bg);
+    display: flex; flex-direction: column; overflow-y: auto; overflow-x: hidden;
+}
+
+/* --- UI ELEMENTS --- */
+#graphical-selector { padding: 15px; border-bottom: 2px solid #1a1a1a; }
+
+.selector-tabs { display: flex; background: #111; padding: 3px; border-radius: 10px; margin-bottom: 10px; }
+.tab-btn { 
+    flex: 1; background: transparent; border: none; color: #666; padding: 8px; 
+    font-size: 10px; font-weight: 800; border-radius: 7px; cursor: pointer;
+}
+.tab-btn.active { background: var(--primary); color: #000; }
+
+/* --- MAP --- */
+.map-region { fill: #1a1a1a; stroke: #555; stroke-width: 2; transition: 0.3s; }
+.map-region.active { fill: var(--primary); stroke: #fff; filter: drop-shadow(0 0 8px var(--primary)); }
+
+/* --- FLAVOR WHEEL --- */
+.flavor-matrix-container { width: 100%; display: block; padding: 10px 0; }
+.matrix-labels { display: flex; justify-content: space-between; color: #fff; font-size: 9px; font-weight: bold; }
+.flavor-plot { 
+    width: 100%; aspect-ratio: 1/1; background: #080808; border: 1px solid #333; 
+    position: relative; margin-top: 5px; border-radius: 8px; 
+}
+.axis-x { position: absolute; bottom: 50%; width: 100%; height: 1px; background: #444; }
+.axis-y { position: absolute; left: 50%; height: 100%; width: 1px; background: #444; }
+.flavor-dot { 
+    position: absolute; width: 12px; height: 12px; background: var(--primary); 
+    border-radius: 50%; transform: translate(-50%, 50%); cursor: pointer; z-index: 10;
+}
+
+/* --- TILES --- */
+.tile-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 15px; }
+.tile { 
+    width: 100%; aspect-ratio: 1/1; position: relative; overflow: hidden; 
+    border-radius: 14px; background: var(--surface); border: 1px solid #222; 
+}
+.tile img { width: 100%; height: 100%; object-fit: cover; }
+.tile-label { 
+    position: absolute; bottom: 0; width: 100%; padding: 10px; 
+    background: linear-gradient(transparent, rgba(0,0,0,0.9)); color: #fff; font-size: 11px; 
+}
+
+/* --- TOOLTIP --- */
+.ui-tooltip {
+    position: absolute; display: none; padding: 6px 12px; background: #fff; 
+    color: #000; font-size: 10px; font-weight: 800; border-radius: 4px; 
+    pointer-events: none; z-index: 9999; text-transform: uppercase;
+}

@@ -1,0 +1,8 @@
+{
+  "id": "PROD_SOURDOUGH",
+  "formula": [
+    { "id": "PROC_LEVAIN", "pct": 0.25 },
+    { "id": "MAT_WHEAT", "pct": 0.65 },
+    { "id": "MAT_WATER", "pct": 0.1 }
+  ]
+}

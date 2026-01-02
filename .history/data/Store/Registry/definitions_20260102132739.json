@@ -1,0 +1,129 @@
+{
+  "field_mapping": {
+    "NODE_ID": "id",
+    "RELATIONAL_DATA": "formula",
+    "DEPENDENCY_LINK": "prerequisites",
+    "CATEGORY": "category_id"
+  },
+  "logic_behaviors": {
+    "LEAF": {
+      "recursive": false
+    },
+    "BRANCH": {
+      "recursive": true
+    }
+  },
+  "physics_categories": {
+    "DRY_MATTER": {
+      "hydration_role": "base",
+      "ROUNDING_THRESHOLD_PCT": 0.05,
+      "PRECISION_DECIMALS": 1
+    },
+    "LIQUID": {
+      "hydration_role": "fluid",
+      "ROUNDING_THRESHOLD_PCT": 0.05,
+      "PRECISION_DECIMALS": 1
+    },
+    "FAT": {
+      "hydration_role": "ignore",
+      "ROUNDING_THRESHOLD_PCT": 0.05,
+      "PRECISION_DECIMALS": 1
+    },
+    "OTHER": {
+      "hydration_role": "ignore",
+      "ROUNDING_THRESHOLD_PCT": 0.05,
+      "PRECISION_DECIMALS": 1
+    }
+  },
+  "registry": {
+    "MAT_WHEAT": {
+      "category_id": "DRY_MATTER",
+      "type": "LEAF",
+      "industry_tags": ["flour", "grain"],
+      "ui_features": {
+        "tile_photo": "assets/img/wheat_flour.jpg"
+      }
+    },
+    "MAT_WATER": {
+      "category_id": "LIQUID",
+      "type": "LEAF",
+      "industry_tags": ["liquid"],
+      "ui_features": {
+        "tile_photo": "assets/img/water.jpg"
+      }
+    },
+    "PROD_001": {
+      "category_id": "DRY_MATTER",
+      "type": "BRANCH",
+      "industry_tags": ["scald", "preferment"],
+      "ui_features": {
+        "tile_photo": "assets/img/yudane.jpg",
+        "video_ref": "assets/vid/yudane_mix.mp4",
+        "workflow_sequence": [
+          "step_boil_water",
+          "step_mix_scald",
+          "step_gelatinize"
+        ]
+      }
+    },
+    "PROC_STARTER": {
+      "category_id": "DRY_MATTER",
+      "type": "BRANCH",
+      "industry_tags": ["starter", "culture"],
+      "ui_features": {
+        "tile_photo": "assets/img/starter.jpg",
+        "video_ref": "assets/vid/feeding.mp4",
+        "workflow_sequence": [
+          "step_discard",
+          "step_feed_flour",
+          "step_feed_water",
+          "step_ferment"
+        ]
+      }
+    },
+    "PROC_LEVAIN": {
+      "category_id": "DRY_MATTER",
+      "type": "BRANCH",
+      "industry_tags": ["preferment"],
+      "ui_features": {
+        "tile_photo": "assets/img/levain.jpg",
+        "workflow_sequence": [
+          "step_mix_levain",
+          "step_ripen"
+        ]
+      }
+    },
+    "PROD_SOURDOUGH": {
+      "category_id": "DRY_MATTER",
+      "type": "BRANCH",
+      "industry_tags": ["bread", "sourdough"],
+      "ui_features": {
+        "tile_photo": "assets/img/sourdough_loaf.jpg",
+        "video_ref": "assets/vid/shaping_sourdough.mp4",
+        "workflow_sequence": [
+          "step_autolyse",
+          "step_add_salt",
+          "step_bulk_ferment",
+          "step_shape",
+          "step_bake"
+        ]
+      }
+    },
+    "MAT_001": { "category_id": "DRY_MATTER", "type": "LEAF", "industry_tags": ["flour"] },
+    "MAT_002": { "category_id": "LIQUID", "type": "LEAF", "industry_tags": ["liquid"] },
+    "MAT_003": { "category_id": "LIQUID", "type": "LEAF", "industry_tags": ["liquid"] },
+    "MAT_004": { "category_id": "OTHER", "type": "LEAF", "industry_tags": ["additive"] },
+    "MAT_005": { "category_id": "OTHER", "type": "LEAF", "industry_tags": ["additive"] },
+    "MAT_006": { "category_id": "FAT", "type": "LEAF", "industry_tags": ["fat"] }
+  },
+  "orchestration": {
+    "paths": {
+      "entities": "Entities"
+    },
+    "output_mapping": {
+      "name_column": "Ingredient",
+      "value_column": "Amount",
+      "id_column": "Code"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <title>Baking Core | Database Browser</title>
+    <style>
+        body { font-family: sans-serif; background: #1a1a1a; color: #eee; padding: 20px; }
+        .dashboard { display: grid; grid-template-columns: 300px 1fr; gap: 20px; }
+        .filter-panel { border-right: 1px solid #444; padding-right: 20px; }
+        .recipe-card { background: #2a2a2a; padding: 10px; margin-bottom: 10px; cursor: pointer; border-radius: 4px; }
+        .recipe-card:hover { background: #3a3a3a; }
+        pre { background: #000; padding: 15px; border-radius: 5px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>Baking Core Browser</h1>
+    <div class="dashboard">
+        <div class="filter-panel" id="filter-panel">
+            <h3>Available Products</h3>
+            <div id="product-list">Loading database...</div>
+        </div>
+        <div class="process-view" id="process-view">
+            <h3>Process View</h3>
+            <div id="output">Select a product to see the resolution process.</div>
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>

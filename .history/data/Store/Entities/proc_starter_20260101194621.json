@@ -1,0 +1,7 @@
+{
+  "id": "PROC_STARTER",
+  "formula": [
+    { "id": "MAT_WHEAT", "pct": 0.5 },
+    { "id": "MAT_WATER", "pct": 0.5 }
+  ]
+}

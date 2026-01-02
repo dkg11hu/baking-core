@@ -1,0 +1,86 @@
+{
+    "field_mapping": {
+        "NODE_ID": "id",
+        "RELATIONAL_DATA": "formula",
+        "DEPENDENCY_LINK": "prerequisites",
+        "CATEGORY": "category_id"
+    },
+    "logic_behaviors": {
+        "LEAF": {
+            "recursive": false
+        },
+        "BRANCH": {
+            "recursive": true
+        }
+    },
+    "physics_categories": {
+        "DRY_MATTER": {
+            "hydration_role": "base",
+            "ROUNDING_THRESHOLD_PCT": 0.05,
+            "PRECISION_DECIMALS": 1
+        },
+        "LIQUID": {
+            "hydration_role": "fluid",
+            "ROUNDING_THRESHOLD_PCT": 0.05,
+            "PRECISION_DECIMALS": 1
+        },
+        "FAT": {
+            "hydration_role": "ignore",
+            "ROUNDING_THRESHOLD_PCT": 0.05,
+            "PRECISION_DECIMALS": 1
+        },
+        "OTHER": {
+            "hydration_role": "ignore",
+            "ROUNDING_THRESHOLD_PCT": 0.05,
+            "PRECISION_DECIMALS": 1
+        }
+    },
+    "registry": {
+        "MAT_001": {
+            "category_id": "DRY_MATTER",
+            "type": "LEAF"
+        },
+        "MAT_002": {
+            "category_id": "LIQUID",
+            "type": "LEAF"
+        },
+        "MAT_003": {
+            "category_id": "LIQUID",
+            "type": "LEAF"
+        },
+        "MAT_004": {
+            "category_id": "OTHER",
+            "type": "LEAF"
+        },
+        "MAT_005": {
+            "category_id": "OTHER",
+            "type": "LEAF"
+        },
+        "MAT_006": {
+            "category_id": "FAT",
+            "type": "LEAF"
+        },
+        "PROD_001": {
+            "category_id": "DRY_MATTER",
+            "type": "BRANCH"
+        },
+        "PROD_002": {
+            "category_id": "DRY_MATTER",
+            "type": "BRANCH"
+        },
+        "MAT_WHEAT": { 
+            "category_id": "DRY_MATTER", "type": "LEAF" },
+        "MAT_WATER": { "category_id": "LIQUID", "type": "LEAF" },
+        "PROC_STARTER": { "category_id": "DRY_MATTER", "type": "BRANCH" },
+        "PROC_LEVAIN": { "category_id": "DRY_MATTER", "type": "BRANCH" },
+        "PROD_SOURDOUGH": { "category_id": "DRY_MATTER", "type": "BRANCH" }
+        },
+    "orchestration": {
+    "paths": { "entities": "Entities" },
+    "output_mapping": {
+      "name_column": "Ingredient",
+      "value_column": "Amount",
+      "id_column": "Code"
+    }
+  }
+} 

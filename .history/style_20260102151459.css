@@ -1,0 +1,32 @@
+.map-wrapper {
+    padding: 10px;
+    text-align: center;
+}
+
+.selection-map {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
+}
+
+.map-region {
+    fill: #333;
+    stroke: #444;
+    stroke-width: 1;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.map-region:hover, .map-region.active {
+    fill: var(--primary);
+    stroke: var(--primary);
+    filter: brightness(1.2);
+}
+
+#active-territory-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-top: 8px;
+    color: var(--primary);
+    font-weight: bold;
+}

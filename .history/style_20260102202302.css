@@ -1,0 +1,39 @@
+:root { --primary: #f1c40f; --bg: #000; --phone-w: 375px; --phone-h: 812px; }
+
+body { 
+    margin: 0; background: #1a1a1a; display: flex; justify-content: center; 
+    align-items: center; min-height: 100vh; font-family: sans-serif; overflow: hidden;
+}
+
+.iphone-xs {
+    width: var(--phone-w); height: var(--phone-h); background: #000;
+    border-radius: 40px; position: relative; border: 10px solid #111;
+    overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+}
+
+.screen-content { width: 100%; height: 100%; background: var(--bg); display: flex; flex-direction: column; overflow-y: auto; }
+
+/* Selector & Tabs */
+.selector-tabs { display: flex; background: #111; padding: 4px; border-radius: 10px; margin: 15px; }
+.tab-btn { flex: 1; background: transparent; border: none; color: #555; padding: 8px; font-size: 10px; font-weight: bold; border-radius: 7px; cursor: pointer; }
+.tab-btn.active { background: var(--primary); color: #000; }
+
+/* Titles - Forced Visibility */
+h2, .tile-label strong, .matrix-labels, .step-counter { color: #fff !important; text-shadow: 0 2px 4px #000; }
+
+/* Flavor Matrix */
+.flavor-plot { width: 100%; aspect-ratio: 1/1; background: #080808; border: 1px solid #222; position: relative; border-radius: 8px; }
+.axis-x { position: absolute; bottom: 50%; width: 100%; height: 1px; background: #333; }
+.axis-y { position: absolute; left: 50%; height: 100%; width: 1px; background: #333; }
+.flavor-dot { position: absolute; width: 10px; height: 10px; background: var(--primary); border-radius: 50%; transform: translate(-50%, 50%); cursor: pointer; }
+
+/* Tiles */
+.tile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
+.tile { aspect-ratio: 1/1; background: #111; border-radius: 12px; overflow: hidden; position: relative; border: 1px solid #222; }
+.tile img { width: 100%; height: 100%; object-fit: cover; }
+.tile-label { position: absolute; bottom: 0; width: 100%; padding: 10px; background: linear-gradient(transparent, #000); }
+
+/* Helpers */
+.ui-tooltip { position: absolute; display: none; padding: 6px 12px; background: #fff; color: #000; font-size: 10px; font-weight: bold; border-radius: 4px; z-index: 9999; }
+.artisan-loader { width: 25px; height: 25px; border: 2px solid #222; border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }

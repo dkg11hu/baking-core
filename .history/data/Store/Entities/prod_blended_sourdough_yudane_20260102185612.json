@@ -1,0 +1,13 @@
+{
+  "id": "prod_blended_sourdough_yudane",
+  "formula": [
+    { "id": "MAT_WHEAT_T80", "pct": 1.0 },
+    { "id": "PROD_YUDANE", "pct": 0.2 },
+    { "id": "PROC_STARTER", "pct": 0.15 }
+  ],
+  "parameters": {
+    "step_boil": { "target_temp": 100 },
+    "step_bulk_ferment": { "duration_min": 240, "target_temp": 26 },
+    "step_bake": { "duration_min": 45, "tools": ["TOOL_DECK_OVEN", "TOOL_STEAM"] }
+  }
+}
