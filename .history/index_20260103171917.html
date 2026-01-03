@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23121212'/><path d='M30 70 L50 30 L70 70' stroke='%23f1c40f' stroke-width='8' fill='none'/></svg>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Baking Core | XS Driver</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="iphone-xs">
+        <div class="notch"></div>
+        <div class="screen-content">
+            <section id="gateway-view">
+                <div class="gateway-hero">
+                    <h1 class="brand-title">Baking Core</h1>
+                    <div class="choice-container">
+                        <button class="choice-card" onclick="window.viewHistory()">
+                            <div class="icon">★</div>
+                            <strong>HISTORY</strong>
+                        </button>
+                        <button class="choice-card highlight" onclick="window.openBrowser()">
+                            <div class="icon">➔</div>
+                            <strong>CATALOG</strong>
+                        </button>
+                    </div>
+                </div>
+            </section>
+<section id="browser-view" class="hidden">
+    <div class="sticky-header">
+        <div class="selector-tabs">
+            <button class="tab-btn active" data-view="map" onclick="window.switchSelector('map')">MAP</button>
+            <button class="tab-btn" data-view="flavor" onclick="window.switchSelector('flavor')">FLAVOR</button>
+        </div>
+        
+        <div id="graphical-filter-container">
+            <div id="view-map"></div>
+            <div id="view-flavor" class="hidden"></div>
+        </div>
+    </div>
+
+    <div id="tile-grid" class="tile-grid"></div>
+
+    <div class="stepper-controls">
+        <button class="btn-nav" onclick="window.showStage('gateway-view')">BACK</button>
+    </div>
+</section>
+            <section id="params-view" class="hidden">
+                <div id="discovery-root"></div>
+                <div class="stepper-controls">
+                    <button class="btn-nav" onclick="window.showStage('browser-view')">BACK</button>
+                    <button class="btn-nav primary" onclick="window.lockAndStart()">START BAKE</button>
+                </div>
+            </section>
+
+            <section id="execution-view" class="hidden">
+                <div id="execution-root"></div>
+                <div class="stepper-controls">
+                    <button class="btn-nav" onclick="window.changeStep(-1)">BACK</button>
+                    <button class="btn-nav primary" onclick="window.changeStep(1)">NEXT STEP</button>
+                </div>
+            </section>
+        </div>
+        <div class="home-indicator"></div>
+    </div>
+    <script type="module" src="app.js"></script>
+</body>
+</html>

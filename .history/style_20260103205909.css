@@ -1,0 +1,133 @@
+/* --- 1. CORE OLED SYSTEM --- */
+:root {
+    --primary: #f1c40f;
+    --bg: #000000;
+    --surface: #121212;
+    --border: #222222;
+    --text-main: #ffffff;
+    --text-dim: #888888;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    margin: 0;
+    font-family: -apple-system, system-ui, sans-serif;
+    overflow: hidden;
+}
+
+/* --- 2. NAVIGATION BAR & BUTTONS (The Fix) --- */
+.nav-bar {
+    display: flex;
+    gap: 12px;
+    padding: 16px;
+    background: #050505;
+    border-top: 1px solid var(--border);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 100;
+}
+
+.btn-nav {
+    flex: 1; /* Makes buttons equal width */
+    background: #1a1a1a;
+    color: #ffffff !important;
+    border: 1px solid var(--border);
+    padding: 16px;
+    border-radius: 8px;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.btn-nav.primary {
+    background: var(--primary);
+    color: #000 !important;
+    border: none;
+}
+
+/* --- 3. FLAVOR WHEEL GRID --- */
+.flavor-grid-layout {
+    display: grid;
+    grid-template-columns: 30px 55px 1fr; 
+    grid-template-rows: 350px 30px 30px auto;
+    gap: 5px;
+    padding: 20px 10px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.y-axis-title, .x-axis-title {
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.y-axis-title {
+    grid-column: 1; grid-row: 1;
+    display: flex; align-items: center; justify-content: center;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+}
+
+.x-axis-title {
+    grid-column: 3; grid-row: 3;
+    display: flex; align-items: center; justify-content: center;
+}
+
+.y-ticks {
+    grid-column: 2; grid-row: 1;
+    display: flex; flex-direction: column-reverse; justify-content: space-between;
+    align-items: flex-end; padding-right: 8px; font-size: 18px; color: #fff; font-family: monospace;
+}
+
+.flavor-plot {
+    grid-column: 3; grid-row: 1;
+    border: 1px solid #333; background: #080808; position: relative; border-radius: 4px;
+}
+
+.x-ticks {
+    grid-column: 3; grid-row: 2;
+    display: flex; justify-content: space-between; padding-top: 5px;
+    font-size: 18px; color: #fff; font-family: monospace;
+}
+
+/* --- 4. DATA DOTS --- */
+.flavor-dot {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: var(--primary);
+    border: 2px solid #000;
+    border-radius: 50%;
+    /* This ensures the center of the dot is on the coordinate */
+    transform: translate(-50%, 50%); 
+    z-index: 50;
+    box-shadow: 0 0 10px rgba(241, 196, 15, 0.4);
+}
+
+/* --- 5. QUADRANT TEXT --- */
+.quad span { font-size: 16px; font-weight: 900; color: #ffffff15; transform: rotate(-15deg); text-transform: uppercase; }
+.q-tl, .q-tr, .q-bl, .q-br { 
+    position: absolute; width: 50%; height: 50%; display: flex; justify-content: center; align-items: center; pointer-events: none; 
+}
+.q-tl { top: 0; left: 0; }
+.q-tr { top: 0; right: 0; }
+.q-bl { bottom: 0; left: 0; }
+.q-br { bottom: 0; right: 0; }
+
+.axis-x { position: absolute; top: 50%; width: 100%; height: 1px; background: #222; }
+.axis-y { position: absolute; left: 50%; height: 100%; width: 1px; background: #222; }
+
+/* Grid Line separation */
+.grid-line { position: absolute; background: #111; pointer-events: none; }
+.grid-line.horizontal { width: 100%; height: 1px; }
+.grid-line.vertical { height: 100%; width: 1px; }

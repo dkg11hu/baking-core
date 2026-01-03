@@ -1,0 +1,130 @@
+/* --- 1. CORE OLED SYSTEM --- */
+:root {
+    --primary: #f1c40f;
+    --bg: #000000;
+    --surface: #121212;
+    --border: #222222;
+    --text-main: #ffffff;
+    --text-dim: #888888;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    margin: 0;
+    font-family: -apple-system, system-ui, sans-serif;
+    overflow: hidden;
+}
+
+/* --- 2. THE STAGE ENGINE --- */
+section { 
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+    background: var(--bg); z-index: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
+}
+section:not(.hidden) { z-index: 10; animation: fadeIn 0.2s; }
+.hidden { display: none !important; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* --- 3. GRID & FLAVOR WHEEL FIX --- */
+.flavor-grid-layout {
+    display: grid;
+    /* Added Column 1 for Vertical Title */
+    grid-template-columns: 30px 55px 1fr; 
+    grid-template-rows: 350px 30px auto;
+    gap: 5px;
+    padding: 20px 10px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.y-axis-title {
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.y-ticks {
+    grid-column: 2; /* Shifted to accommodate title */
+    grid-row: 1;
+    display: flex;
+    flex-direction: column-reverse; 
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-right: 8px;
+    font-size: 20px;
+    color: #fff;
+    font-family: monospace;
+}
+
+.flavor-plot {
+    grid-column: 3; /* Shifted to accommodate title and ticks */
+    grid-row: 1;
+    border: 1px solid #fff;
+    background: #080808;
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.x-ticks {
+    grid-column: 3;
+    grid-row: 2;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 5px;
+    font-size: 20px;
+    color: #fff;
+    font-family: monospace;
+}
+
+/* --- 4. QUADRANTS & DOTS --- */
+.quad {
+    position: absolute;
+    width: 50%; height: 50%;
+    display: flex; justify-content: center; align-items: center;
+    pointer-events: none;
+}
+.quad span {
+    font-size: 18px; font-weight: 900; color: #ffffff33; 
+    transform: rotate(-15deg); text-transform: uppercase;
+}
+.q-tl { top: 0; left: 0; }
+.q-tr { top: 0; right: 0; }
+.q-bl { bottom: 0; left: 0; }
+.q-br { bottom: 0; right: 0; }
+
+.axis-x { position: absolute; top: 50%; width: 100%; height: 1px; background: #444; }
+.axis-y { position: absolute; left: 50%; height: 100%; width: 1px; background: #444; }
+
+.flavor-dot {
+    position: absolute;
+    width: 14px; height: 14px;
+    background: var(--primary);
+    border: 2px solid #000;
+    border-radius: 50%;
+    transform: translate(-50%, 50%); 
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* --- 5. FOOTER & MISC --- */
+.info-footer {
+    grid-column: 1 / span 3;
+    grid-row: 3;
+    margin-top: 15px;
+}
+.matrix-labels {
+    display: flex; justify-content: space-between;
+    font-size: 9px; color: #fff; font-weight: 700;
+}

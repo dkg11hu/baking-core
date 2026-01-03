@@ -1,0 +1,53 @@
+/* --- VIEW CONTAINERS --- */
+#browser-view, #workflow-view {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background: #000;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+}
+
+/* --- GRID ARCHITECTURE --- */
+.tile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding: 16px;
+    min-height: 400px; 
+    box-sizing: border-box;
+}
+
+.tile-label {
+    color: #FFFFFF;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* --- WORKFLOW TRACKS --- */
+.discovery-wrapper, .production-wrapper {
+    padding: 20px;
+    color: #fff;
+}
+
+.meta-chip {
+    display: inline-flex;
+    flex-direction: column;
+    margin-right: 20px;
+    border-left: 1px solid #333;
+    padding-left: 10px;
+}
+
+.meta-chip span { font-size: 8px; color: #666; text-transform: uppercase; }
+.meta-chip strong { font-size: 14px; color: var(--primary, #f1c40f); }
+
+.hidden { display: none !important; }

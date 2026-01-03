@@ -1,0 +1,83 @@
+/* --- CORE --- */
+:root { --primary: #f1c40f; }
+body { background: #000; color: #fff; margin: 0; font-family: -apple-system, sans-serif; overflow: hidden; }
+
+section { 
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+    background: #000; z-index: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
+}
+section:not(.hidden) { z-index: 10; animation: fadeIn 0.2s; }
+.hidden { display: none !important; }
+
+/* --- GRID & TILES (The "Huge Pics" Fix) --- */
+.tile-grid { 
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 12px; 
+}
+
+.tile { background: #050505; border: 1px solid #1a1a1a; border-radius: 12px; overflow: hidden; }
+
+.tile-img-box { 
+    width: 100%; aspect-ratio: 1 / 1; background: #000; overflow: hidden; 
+}
+
+.tile-img-box img { 
+    width: 100%; height: 100%; object-fit: cover; display: block; 
+}
+
+.tile-label { 
+    padding: 10px; font-size: 10px; font-weight: 900; text-transform: uppercase; 
+    text-align: center; color: #fff; background: #0a0a0a; 
+}
+
+/* --- DISCOVERY CHOICE CARDS --- */
+.choice-card {
+    background: #111; border: 1px solid #333; border-radius: 15px;
+    padding: 25px; margin: 15px; display: flex; align-items: center; gap: 20px;
+}
+.choice-card.highlight { border-color: var(--primary); }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* --- TILE GRID CONSTRAINTS --- */
+.tile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Strict 2-column layout */
+    gap: 12px;
+    padding: 16px;
+    background: #000;
+}
+
+.tile {
+    background: #0a0a0a;
+    border: 1px solid #1a1a1a;
+    border-radius: 12px;
+    overflow: hidden; /* Clips the huge images */
+    display: flex;
+    flex-direction: column;
+}
+
+/* The Fix for Huge Pics */
+.tile-img-box {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Forced square box */
+    overflow: hidden;
+    background: #000;
+}
+
+.tile-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Crops the high-res image to fill the square center */
+    display: block;
+}
+
+.tile-label {
+    padding: 10px;
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 1px;
+    color: #fff;
+}
+

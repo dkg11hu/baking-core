@@ -1,0 +1,399 @@
+/* --- 1. CORE OLED SYSTEM --- */
+:root {
+    --primary: #f1c40f;
+    --bg: #000000;
+    --surface: #121212;
+    --border: #222222;
+    --text-main: #ffffff;
+    --text-dim: #888888;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    margin: 0;
+    font-family: -apple-system, system-ui, sans-serif;
+    overflow: hidden;
+}
+
+/* --- 2. THE STAGE ENGINE --- */
+section { 
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+    background: var(--bg); z-index: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
+}
+section:not(.hidden) { z-index: 10; animation: fadeIn 0.2s; }
+.hidden { display: none !important; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* --- 3. LABEL & BUTTON SANITIZATION (The Fix) --- */
+/* This forces all interactive elements to use white text by default */
+button, .btn-nav, .tab-btn, .choice-card, .tile-label {
+    color: var(--text-main) !important;
+    font-family: inherit;
+    text-decoration: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Navigation Buttons (Back/Next) */
+.btn-nav {
+    background: #1a1a1a;
+    border: 1px solid var(--border);
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-nav.primary {
+    background: var(--primary);
+    color: #000000 !important; /* Strictly black text for high-contrast on gold */
+    border: none;
+}
+
+/* --- 4. GRID & TILES (The "Huge Pics" Fix) --- */
+.tile-grid { 
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 16px; 
+}
+
+.tile { 
+    background: var(--surface); 
+    border: 1px solid var(--border); 
+    border-radius: 12px; 
+    overflow: hidden; 
+    display: flex;
+    flex-direction: column;
+}
+
+.tile-img-box { 
+    width: 100%; aspect-ratio: 1 / 1; background: #000; overflow: hidden; 
+}
+
+.tile-img-box img { 
+    width: 100%; height: 100%; object-fit: cover; display: block; 
+}
+
+.tile-label { 
+    padding: 12px 8px; font-size: 10px; font-weight: 900; 
+    text-transform: uppercase; text-align: center; background: #0a0a0a;
+}
+
+.tile-label strong {
+    color: var(--text-main) !important;
+}
+
+/* --- 5. DISCOVERY CHOICE CARDS --- */
+.choice-card {
+    background: var(--surface);
+    border: 1px solid #333;
+    padding: 24px;
+    margin: 16px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.choice-card strong {
+    color: var(--text-main) !important;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+.choice-card.highlight {
+    border-color: var(--primary);
+}
+
+.choice-card .icon {
+    font-size: 24px;
+    color: var(--primary);
+}
+
+/* --- 6. SELECTOR TABS --- */
+.selector-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px;
+    background: #0a0a0a;
+    border-bottom: 1px solid var(--border);
+}
+
+.tab-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-dim) !important;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.tab-btn.active {
+    color: var(--primary) !important;
+    border-bottom: 2px solid var(--primary);
+}
+
+/* Ensure DB-generated titles are visible */
+.step-title {
+    color: var(--primary, #f1c40f) !important;
+    font-size: 24px;
+    text-transform: uppercase;
+    margin: 20px 0;
+}
+
+.instruction-body p {
+    color: #ffffff;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+.meta-chip strong {
+    color: var(--primary) !important;
+}
+
+/* Execution Headers */
+.meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.restart-btn {
+    background: transparent;
+    color: #ff4444 !important; /* Red for destructive action */
+    border: 1px solid #333;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 4px;
+    background: #1a1a1a;
+    margin: 15px 0;
+    border-radius: 2px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--primary);
+    transition: width 0.3s ease;
+}
+
+.instruction-card {
+    background: #0a0a0a;
+    border: 1px solid #1a1a1a;
+    padding: 25px;
+    border-radius: 12px;
+    margin-top: 20px;
+}
+
+.instruction-text {
+    font-size: 17px;
+    line-height: 1.5;
+    color: #efefef;
+}
+
+/* Ensure the restart button is visible but non-intrusive */
+.restart-btn {
+    background: transparent;
+    color: #ff4444 !important; /* Visual cue for "Reset" */
+    border: 1px solid #333;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+/* High contrast for DB-driven text */
+.step-title {
+    color: var(--primary) !important;
+    font-size: 24px;
+    margin: 20px 0;
+    text-transform: uppercase;
+}
+
+.instruction-text {
+    color: #ffffff;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+/* Navigation Buttons */
+.btn-nav {
+    flex: 1;
+    background: #1a1a1a;
+    color: #ffffff !important; /* Force visibility */
+    border: 1px solid #333;
+    padding: 16px;
+    border-radius: 8px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.btn-nav.primary {
+    background: var(--primary, #f1c40f);
+    color: #000 !important;
+    border: none;
+}
+
+/* Metadata chips for DB-driven text */
+.meta-chip span { color: #666; font-size: 8px; text-transform: uppercase; display: block; }
+.meta-chip strong { color: #fff; font-size: 12px; }
+
+.media-stage {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #080808;
+    margin: 20px 0;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #1a1a1a;
+}
+
+.active-media {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: #000;
+    animation: fadeIn 0.5s ease;
+}
+
+.media-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #0a0a0a;
+    color: #444;
+}
+
+.fallback-icon { font-size: 24px; margin-bottom: 8px; opacity: 0.5; }
+.media-fallback span { font-size: 10px; font-weight: 800; letter-spacing: 2px; color: #555; }
+.media-fallback small { font-family: monospace; font-size: 9px; color: #333; margin-top: 4px; }
+
+//* --- FLAVOR WHEEL (OLED HIGH VISIBILITY) --- */
+
+.flavor-grid-layout {
+    display: grid;
+    /* Grid Columns: Y-Label Area | Ticks | Plot Area */
+    grid-template-columns: 20px 40px 1fr; 
+    /* Grid Rows: Plot Height | Ticks | X-Label Area */
+    grid-template-rows: 350px 30px 30px; 
+    gap: 5px;
+    padding: 20px 10px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* The Drawing Area */
+.flavor-plot {
+    grid-column: 3;
+    grid-row: 1;
+    border: 2px solid #666;
+    background: #000;
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+/* --- AXIS TITLES (The Fix) --- */
+
+/* Y-Axis Title: Vertical & Middle */
+.label-y-title {
+    grid-column: 1;
+    grid-row: 1;
+    /* Flexbox centers the rotated text container */
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.label-y-title span {
+    writing-mode: vertical-rl; /* Native vertical text support */
+    transform: rotate(180deg); /* Flip so it reads Bottom-to-Top */
+    color: #fff;
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    white-space: nowrap;
+}
+
+/* X-Axis Title: Horizontal & Center */
+.label-x-title {
+    grid-column: 3;
+    grid-row: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* --- TICKS --- */
+.y-ticks {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column-reverse; 
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-right: 8px;
+    margin-top: -8px; 
+    margin-bottom: -8px;
+    font-size: 14px;
+    color: #ccc;
+    font-weight: 700;
+}
+
+.x-ticks {
+    grid-column: 3;
+    grid-row: 2;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 8px;
+    margin-left: -15px;
+    margin-right: -15px;
+    font-size: 14px;
+    color: #ccc;
+    font-weight: 700;
+}
+
+/* --- FOOTER / LEGEND (Moved below) --- */
+.info-footer {
+    grid-column: 1 / span 3;
+    grid-row: 4; /* New row */
+    margin-top: 15px;
+    border-top: 1px solid #333;
+    padding-top: 15px;
+}
+
+/* ... Keep .quad, .flavor-dot, .legend styles same as before ... */
+.quad { position: absolute; width: 50%; height: 50%; display: flex; justify-content: center; align-items: center; pointer-events: none; }
+.quad span { font-size: 18px; font-weight: 900; letter-spacing: 1.5px; color: rgba(255, 255, 255, 0.5); transform: rotate(-15deg); text-shadow: 0 2px 4px #000; }
+.q-tl { top: 0; left: 0; } .q-tr { top: 0; right: 0; } .q-bl { bottom: 0; left: 0; } .q-br { bottom: 0; right: 0; }
+.grid-line { position: absolute; background: #333; pointer-events: none; }
+.grid-line.horizontal { width: 100%; height: 1px; }
+.grid-line.vertical { height: 100%; width: 1px; }
+.flavor-dot { position: absolute; width: 20px; height: 20px; background: var(--primary, #f1c40f); border: 3px solid #fff; border-radius: 50%; transform: translate(-50%, 50%); cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.9); z-index: 10; }
+.legend-explanation { font-size: 14px; color: #ddd; text-align: center; line-height: 1.5; }
+.legend-item { font-size: 14px; color: var(--primary); font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px; }
+.dot-sample { width: 10px; height: 10px; background: var(--primary); border: 2px solid #fff; border-radius: 50%; display: block; }

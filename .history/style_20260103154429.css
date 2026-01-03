@@ -1,0 +1,470 @@
+:root { 
+    --primary: #f1c40f; 
+    --bg: #000; 
+    --phone-w: 375px; 
+    --phone-h: 812px; 
+}
+
+body { 
+    margin: 0; background: #1a1a1a; display: flex; justify-content: center; 
+    align-items: center; min-height: 100vh; font-family: sans-serif; overflow: hidden;
+}
+
+.iphone-xs {
+    width: var(--phone-w); height: var(--phone-h); background: #000;
+    border-radius: 40px; position: relative; border: 10px solid #111;
+    overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+}
+
+.screen-content { width: 100%; height: 100%; background: var(--bg); display: flex; flex-direction: column; overflow-y: auto; }
+
+/* Selector & Tabs */
+.selector-tabs { display: flex; background: #111; padding: 4px; border-radius: 10px; margin: 15px; }
+.tab-btn { flex: 1; background: transparent; border: none; color: #555; padding: 8px; font-size: 10px; font-weight: bold; border-radius: 7px; cursor: pointer; }
+.tab-btn.active { background: var(--primary); color: #000; }
+
+/* Titles - Forced Visibility */
+h2, .tile-label strong, .matrix-labels, .step-counter { color: #fff !important; text-shadow: 0 2px 4px #000; }
+
+/* Flavor Matrix */
+.flavor-plot { width: 100%; aspect-ratio: 1/1; background: #080808; border: 1px solid #222; position: relative; border-radius: 8px; }
+.axis-x { position: absolute; bottom: 50%; width: 100%; height: 1px; background: #333; }
+.axis-y { position: absolute; left: 50%; height: 100%; width: 1px; background: #333; }
+.flavor-dot { position: absolute; width: 10px; height: 10px; background: var(--primary); border-radius: 50%; transform: translate(-50%, 50%); cursor: pointer; }
+
+/* Tiles */
+.tile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
+.tile { aspect-ratio: 1/1; background: #111; border-radius: 12px; overflow: hidden; position: relative; border: 1px solid #222; }
+.tile img { width: 100%; height: 100%; object-fit: cover; }
+.tile-label { position: absolute; bottom: 0; width: 100%; padding: 10px; background: linear-gradient(transparent, #000); }
+
+/* Step Metadata */
+.step-counter { font-size: 9px; letter-spacing: 2.5px; margin-bottom: 8px; font-weight: 900; text-transform: uppercase; }
+.tool-tags { display: flex; gap: 6px; margin-top: 15px; flex-wrap: wrap; }
+.tag { background: #1a1a1a; color: #888; font-size: 8px; padding: 4px 10px; border-radius: 4px; border: 1px solid #333; text-transform: uppercase; font-weight: bold; }
+
+/* Fallback Media */
+.fallback-ui { width: 100%; height: 210px; background: radial-gradient(circle, #0a0a0a 0%, #000 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; color: #444; font-size: 10px; border-bottom: 1px solid #1a1a1a; }
+.artisan-loader { width: 25px; height: 25px; border: 2px solid #222; border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Media Container */
+.media-container {
+    width: 100%;
+    height: 240px;
+    background: #050505;
+    position: relative;
+    border-bottom: 1px solid #1a1a1a;
+}
+
+.step-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Fallback Visualizer */
+.media-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle, #0f0f0f 0%, #000 100%);
+}
+
+.visualizer-icon {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    margin-bottom: 20px;
+}
+
+.pulse-ring {
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--primary);
+    border-radius: 50%;
+    animation: pulse 2s infinite ease-out;
+}
+
+.inner-dot {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 6px; height: 6px;
+    background: var(--primary);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.tech-id {
+    color: #fff;
+    font-size: 10px;
+    letter-spacing: 2px;
+    font-weight: 800;
+}
+
+.status-msg {
+    color: #444;
+    font-size: 8px;
+    margin-top: 5px;
+    font-weight: 900;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.5); opacity: 1; }
+    100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* 1. Map Visibility Fix */
+#view-map {
+    display: block; /* Ensure it's not hidden by default */
+    width: 100%;
+    padding: 20px;
+    fill: #333; /* Default SVG color */
+}
+
+#view-map svg {
+    width: 100%;
+    height: auto;
+}
+
+/* 2. Text Spacing Fix (step_discardASSET_PENDING) */
+.fallback-text-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px; /* Adds space between ID and Status */
+}
+
+/* 3. Premium Button Formatting */
+.stepper-controls {
+    display: flex;
+    gap: 15px;
+    padding: 20px;
+    background: #000;
+    margin-top: auto; /* Pushes buttons to bottom of screen */
+    border-top: 1px solid #1a1a1a;
+}
+
+.nav-btn {
+    flex: 1;
+    padding: 16px;
+    border-radius: 12px;
+    border: none;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.nav-btn:active { transform: scale(0.96); }
+
+.nav-btn.primary {
+    background: var(--primary);
+    color: #000;
+}
+
+.nav-btn.secondary {
+    background: #1a1a1a;
+    color: #fff;
+    border: 1px solid #333;
+}
+
+/* Step Title Polish */
+.step-title {
+    color: #fff;
+    font-size: 22px;
+    margin: 10px 0;
+    font-weight: 200; /* Modern, thin aesthetic */
+}
+
+/* --- BUTTON & CONTROL FORMATTING --- */
+.stepper-controls {
+    display: flex;
+    gap: 12px;
+    padding: 20px;
+    background: #000;
+    margin-top: auto; /* Pushes to bottom */
+    border-top: 1px solid #1a1a1a;
+}
+
+/* Ensure this matches your HTML class btn-nav */
+.btn-nav {
+    flex: 1;
+    padding: 16px;
+    border-radius: 12px;
+    border: none;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: #1a1a1a;
+    color: #fff;
+    transition: transform 0.1s;
+}
+
+.btn-nav.primary {
+    background: var(--primary);
+    color: #000;
+}
+
+.btn-nav:active { transform: scale(0.96); }
+
+/* --- GATEWAY SCREEN (Step 0) --- */
+.gateway-screen {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.choice-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 40px;
+}
+
+.choice-card {
+    background: #0a0a0a;
+    border: 1px solid #222;
+    padding: 24px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+}
+
+.choice-card.highlight {
+    border-color: var(--primary);
+    background: rgba(241, 196, 15, 0.05);
+}
+
+.choice-card .icon { font-size: 24px; color: var(--primary); }
+.choice-card strong { display: block; color: #fff; font-size: 15px; margin-bottom: 4px; }
+.choice-card span { color: #555; font-size: 11px; }
+
+/* --- BUTTON STATES --- */
+.btn-nav:disabled {
+    background: #111 !important;
+    color: #333 !important;
+    border: 1px solid #222 !important;
+    cursor: not-allowed;
+    transform: none !important;
+    filter: grayscale(1);
+    opacity: 0.5;
+}
+
+/* Ensure the primary next button only glows when active */
+.btn-nav.primary:not(:disabled) {
+    background: var(--primary);
+    box-shadow: 0 4px 15px rgba(241, 196, 15, 0.3);
+}
+
+/* Unlit / Disabled State (Default) */
+.btn-nav {
+    flex: 1;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid #222;
+    background: #0a0a0a;
+    color: #444; /* Dimmed text */
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+/* Lit State: NEXT Button */
+.btn-nav.primary:not(:disabled) {
+    background: var(--primary); /* #f1c40f Gold */
+    color: #000;
+    border: none;
+    box-shadow: 0 0 15px rgba(241, 196, 15, 0.4);
+}
+
+/* Lit State: BACK Button */
+.btn-nav:not(.primary):not(:disabled) {
+    background: #1a1a1a;
+    color: #fff;
+    border: 1px solid #444;
+}
+
+/* Tile Selection Feedback */
+.tile.selected {
+    border: 2px solid var(--primary);
+    background: rgba(241, 196, 15, 0.1);
+}
+
+/* Prevent Screen Wobble */
+.sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #000;
+    /* Lock the header height so it doesn't expand/contract */
+    height: 180px; 
+    display: flex;
+    flex-direction: column;
+    padding-top: 44px; /* Notch clearance */
+}
+
+.tile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 15px;
+    /* Ensure the grid doesn't collapse */
+    min-height: 500px; 
+    align-content: start;
+}
+
+/* Fix Title Layout */
+.brand-title {
+    height: 40px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 18px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* Fix Screen Wobble */
+.tile-img-box {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Reserve space before image loads */
+    background: #0a0a0a;
+    overflow: hidden;
+}
+
+.tile-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Ensure sticky header doesn't jitter */
+.sticky-header {
+    height: 180px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #000;
+}
+
+/* Selected State for Gallery */
+.tile.selected {
+    border: 2px solid var(--primary);
+    background: rgba(241, 196, 15, 0.1);
+}
+
+
+/* --- Global Hierarchy --- */
+.iphone-xs {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: #000;
+}
+
+.screen-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+/* --- Fixed Header Logic --- */
+.sticky-header {
+    background: #000;
+    padding-top: 44px; /* Notch area */
+    border-bottom: 1px solid #1a1a1a;
+    flex-shrink: 0;
+}
+
+.selector-slot {
+    height: 240px; /* Lock this height to stop the wobble */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* --- Map & Hint Alignment --- */
+#view-map {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.map-hint {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 8px;
+    font-weight: 900;
+    color: #444;
+    letter-spacing: 1.5px;
+    pointer-events: none; /* Allows clicks to pass through to the map */
+}
+
+/* Layout Constraints */
+#params-view, #workflow-view {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: 10;
+}
+
+.input-cell {
+    padding: 16px 20px;
+    border-bottom: 1px solid #111;
+}
+
+.input-cell label {
+    display: block;
+    font-size: 9px;
+    color: #555;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+}
+
+.input-cell input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--primary);
+    font-size: 24px;
+    font-weight: 300;
+    outline: none;
+}
+
+/* Metadata Chips in Production */
+.meta-chip {
+    display: inline-flex;
+    flex-direction: column;
+    margin-right: 15px;
+}
+
+.meta-chip span { font-size: 8px; color: #666; }
+.meta-chip strong { font-size: 12px; color: #fff; }

@@ -1,0 +1,132 @@
+/* --- 1. CORE OLED SYSTEM --- */
+:root {
+    --primary: #f1c40f;
+    --bg: #000000;
+    --surface: #121212;
+    --border: #222222;
+    --text-main: #ffffff;
+    --text-dim: #888888;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    margin: 0;
+    font-family: -apple-system, system-ui, sans-serif;
+    overflow: hidden;
+}
+
+/* --- 2. THE STAGE ENGINE --- */
+section { 
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+    background: var(--bg); z-index: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
+}
+section:not(.hidden) { z-index: 10; animation: fadeIn 0.2s; }
+.hidden { display: none !important; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* --- 3. OLED COMPONENT STYLES --- */
+button, .btn-nav, .tab-btn, .choice-card, .tile-label {
+    color: var(--text-main) !important;
+    font-family: inherit;
+    text-decoration: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+.btn-nav {
+    background: #1a1a1a;
+    border: 1px solid var(--border);
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-nav.primary {
+    background: var(--primary);
+    color: #000000 !important;
+    border: none;
+}
+
+.tile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 16px; }
+.tile { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+.tile-img-box { width: 100%; aspect-ratio: 1/1; background: #000; overflow: hidden; }
+.tile-img-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tile-label { padding: 12px 8px; font-size: 10px; font-weight: 900; text-transform: uppercase; text-align: center; background: #0a0a0a; }
+
+/* --- 4. FLAVOR WHEEL (OLED GRID) --- */
+.flavor-grid-layout {
+    display: grid;
+    grid-template-columns: 30px 55px 1fr; 
+    grid-template-rows: 350px 30px 30px auto; /* Added row for X-Title */
+    gap: 5px;
+    padding: 20px 10px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* Shared Axis Title Style */
+.y-axis-title, .x-axis-title {
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.y-axis-title {
+    grid-column: 1; grid-row: 1;
+    display: flex; align-items: center; justify-content: center;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+}
+
+.x-axis-title {
+    grid-column: 3; grid-row: 3;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 5px;
+}
+
+.y-ticks {
+    grid-column: 2; grid-row: 1;
+    display: flex; flex-direction: column-reverse; justify-content: space-between;
+    align-items: flex-end; padding-right: 8px; font-size: 20px; color: #fff; font-family: monospace;
+}
+
+.flavor-plot {
+    grid-column: 3; grid-row: 1;
+    border: 1px solid #fff; background: #080808; position: relative; border-radius: 4px; overflow: hidden;
+}
+
+.x-ticks {
+    grid-column: 3; grid-row: 2;
+    display: flex; justify-content: space-between; padding-top: 5px;
+    font-size: 20px; color: #fff; font-family: monospace;
+}
+
+/* Quadrants */
+.quad span { font-size: 18px; font-weight: 900; color: #ffffff33; transform: rotate(-15deg); text-transform: uppercase; }
+.q-tl { position: absolute; top: 0; left: 0; width: 50%; height: 50%; display: flex; justify-content: center; align-items: center; }
+.q-tr { position: absolute; top: 0; right: 0; width: 50%; height: 50%; display: flex; justify-content: center; align-items: center; }
+.q-bl { position: absolute; bottom: 0; left: 0; width: 50%; height: 50%; display: flex; justify-content: center; align-items: center; }
+.q-br { position: absolute; bottom: 0; right: 0; width: 50%; height: 50%; display: flex; justify-content: center; align-items: center; }
+
+.axis-x { position: absolute; top: 50%; width: 100%; height: 1px; background: #444; }
+.axis-y { position: absolute; left: 50%; height: 100%; width: 1px; background: #444; }
+
+.flavor-dot {
+    position: absolute; width: 14px; height: 14px; background: var(--primary);
+    border: 2px solid #000; border-radius: 50%; transform: translate(-50%, 50%); 
+    cursor: pointer; z-index: 10;
+}
+
+.info-footer { grid-column: 1 / span 3; grid-row: 4; margin-top: 20px; text-align: center; }
+.matrix-legend { font-size: 11px; color: #fff; }
+.legend-explanation { font-size: 10px; color: #555; margin-top: 5px; }
+.dot-sample { width: 8px; height: 8px; background: var(--primary); border-radius: 50%; display: inline-block; margin-right: 5px; }

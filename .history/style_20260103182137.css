@@ -1,0 +1,53 @@
+#params-view {
+    background: #000;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.gateway-screen {
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.choice-card {
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: transform 0.1s;
+}
+
+.choice-card:active {
+    transform: scale(0.97);
+    background: #1a1a1a;
+}
+
+.choice-card.highlight {
+    border-color: var(--primary);
+}
+
+.params-grid {
+    padding: 20px;
+}
+
+.param-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid #222;
+}
+
+.param-row input {
+    background: transparent;
+    color: var(--primary);
+    border: none;
+    text-align: right;
+    font-size: 1.2rem;
+    width: 100px;
+}

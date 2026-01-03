@@ -1,0 +1,217 @@
+/* --- CORE --- */
+:root { --primary: #f1c40f; }
+body { background: #000; color: #fff; margin: 0; font-family: -apple-system, sans-serif; overflow: hidden; }
+
+section { 
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+    background: #000; z-index: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
+}
+section:not(.hidden) { z-index: 10; animation: fadeIn 0.2s; }
+.hidden { display: none !important; }
+
+/* --- GRID & TILES (The "Huge Pics" Fix) --- */
+.tile-grid { 
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 12px; 
+}
+
+.tile { background: #050505; border: 1px solid #1a1a1a; border-radius: 12px; overflow: hidden; }
+
+.tile-img-box { 
+    width: 100%; aspect-ratio: 1 / 1; background: #000; overflow: hidden; 
+}
+
+.tile-img-box img { 
+    width: 100%; height: 100%; object-fit: cover; display: block; 
+}
+
+.tile-label { 
+    padding: 10px; font-size: 10px; font-weight: 900; text-transform: uppercase; 
+    text-align: center; color: #fff; background: #0a0a0a; 
+}
+
+/* --- DISCOVERY CHOICE CARDS --- */
+.choice-card {
+    background: #111; border: 1px solid #333; border-radius: 15px;
+    padding: 25px; margin: 15px; display: flex; align-items: center; gap: 20px;
+}
+.choice-card.highlight { border-color: var(--primary); }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* --- TILE GRID CONSTRAINTS --- */
+.tile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Strict 2-column layout */
+    gap: 12px;
+    padding: 16px;
+    background: #000;
+}
+
+.tile {
+    background: #0a0a0a;
+    border: 1px solid #1a1a1a;
+    border-radius: 12px;
+    overflow: hidden; /* Clips the huge images */
+    display: flex;
+    flex-direction: column;
+}
+
+/* The Fix for Huge Pics */
+.tile-img-box {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Forced square box */
+    overflow: hidden;
+    background: #000;
+}
+
+.tile-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Crops the high-res image to fill the square center */
+    display: block;
+}
+
+.tile-label {
+    padding: 10px;
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 1px;
+    color: #fff;
+}
+
+/* --- UNIVERSAL BUTTON STYLING --- */
+button, .primary-btn, .choice-card, .tab-btn {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+/* Primary Action Buttons (Start Bake, Lock, etc.) */
+.primary-btn, .action-btn {
+    background: var(--primary, #f1c40f);
+    color: #000 !important; /* Force black text on gold background */
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 18px;
+    border-radius: 12px;
+    width: 100%;
+    font-size: 14px;
+}
+
+/* Choice Cards & Tile Labels */
+.choice-text strong {
+    color: #FFFFFF !important; /* Force white title */
+    display: block;
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.choice-text span {
+    color: #888 !important; /* Force grey subtext */
+    font-size: 12px;
+}
+
+.tile-label strong {
+    color: #FFFFFF !important; /* Ensure product names are white */
+}
+
+/* Secondary/Tab Buttons */
+.tab-btn {
+    color: #666; /* Unselected state */
+}
+
+.tab-btn.active {
+    color: var(--primary, #f1c40f) !important;
+}
+
+.back-btn {
+    background: #1a1a1a;
+    color: var(--primary) !important;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 20px;
+    margin-right: 15px;
+}
+
+/* --- CORE OLED RESET --- */
+:root {
+    --primary: #f1c40f;
+    --bg: #000000;
+    --surface: #121212;
+    --text-main: #ffffff;
+    --text-dim: #888888;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    margin: 0;
+}
+
+/* --- BUTTON & LABEL SANITIZATION --- */
+button, .choice-card, .btn-nav, .tab-btn {
+    color: var(--text-main) !important; /* Forces all labels to be visible */
+    font-family: inherit;
+}
+
+/* Navigation Buttons (Back/Next) */
+.btn-nav {
+    background: #222;
+    border: 1px solid #333;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.btn-nav.primary {
+    background: var(--primary);
+    color: #000 !important; /* Black text only on the gold button */
+}
+
+/* Choice Cards (History/Catalog) */
+.choice-card {
+    background: var(--surface);
+    border: 1px solid #333;
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.choice-card strong {
+    color: var(--text-main) !important;
+    font-size: 14px;
+}
+
+.choice-card.highlight {
+    border-color: var(--primary);
+}
+
+/* Tab Labels */
+.tab-btn {
+    color: var(--text-dim) !important;
+}
+
+.tab-btn.active {
+    color: var(--primary) !important;
+}
+
+/* --- TILE LABEL FIX (Huge Pics Fix) --- */
+.tile-label strong {
+    color: #fff !important;
+    display: block;
+}
